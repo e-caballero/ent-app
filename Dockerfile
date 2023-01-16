@@ -14,6 +14,6 @@ COPY ./app /usr/src
 RUN npm install
 
 # start app
-RUN LALATINA_ADDRESS=$LALATINA_ADDRESS && PRIVATE_KEY=$PRIVATE_KEY npm run build
+RUN npm "LALATINA_ADDRESS=$LALATINA_ADDRESS && PRIVATE_KEY=$PRIVATE_KEY run build"
 EXPOSE 3000
 CMD npm run start
