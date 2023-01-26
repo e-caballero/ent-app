@@ -1,13 +1,8 @@
 # Dockerfile
-ARG LALATINA_ADDRESS
-ARG PRIVATE_KEY
 
 # base image
 FROM node:alpine
 
-#Environment variables
-ENV LALATINA_ADDRESS=$LALATINA_ADDRESS
-ENV PRIVATE_KEY=$PRIVATE_KEY
 # create & set working directory
 RUN mkdir -p /usr/src
 WORKDIR /usr/src
@@ -18,7 +13,13 @@ COPY ./app /usr/src
 # install dependencies
 RUN npm install
 
+#Environment variables
+ARG LALATINA_ADDRESS
+ARG PRIVATE_KEY
+ENV LALATINA_ADDRESS=$LALATINA_ADDRESS
+ENV PRIVATE_KEY=$PRIVATE_KEY
+
 # start app
-RUN npm run build
+RUN npm run build --private_key=$PRIVATE_KEY
 EXPOSE 3000
 CMD npm run start
